@@ -1,3 +1,5 @@
+const {entriesOfSum: entries2OfSum} = require('./two-entries.js');
+
 const input = [
     1652,
     1998,
@@ -126,8 +128,8 @@ const input = [
     1813,
     1825,
     1944,
-    129
-1856,
+    129,
+    1856,
     1827,
     1939,
     1642,
@@ -202,14 +204,15 @@ const input = [
 ];
 
 const entriesOfSum = (input, sum = 2020) => {
-    const diffreneceSet = new Set();
-
-    for (const expense of input) {
-        if (diffreneceSet.has(sum - expense)) {
-            return [expense, sum - expense];
+    for (let index = 0; index < input.length; index++) {
+        const element = input[index];
+        const entries = entries2OfSum(input.slice(index + 1), sum - element);
+        if (entries) {
+            return [element, ...entries];
         }
-        diffreneceSet.add(sum - expense);
     }
 };
 
-console.log(entriesOfSum(input));
+const [exp1, exp2, exp3] = entriesOfSum(input);
+
+console.log(exp1 * exp2 * exp3);
